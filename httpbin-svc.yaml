@@ -15,7 +15,12 @@ spec:
       protocol: HTTP
     hosts:
     - "*"
-
+  - port:
+      number: 4180
+      name: httpx
+      protocol: HTTP
+    hosts:
+    - "*"
 ---
 # bind vs to the gateway
 #vs does routing
@@ -31,11 +36,37 @@ spec:
   gateways:
   - httpbin-gateway
   http:
-  - route:
+  # - route:
+  #   - destination:
+  #       port:
+  #         number: 8000
+  #       host: httpbin.foo.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /headers
+    route:
+    - destination:
+        port:
+          number: 4180
+        host: oauthproxy-service.default.svc.cluster.local
+  - match:
+    - uri:
+        prefix: /oauth2/
+    route:
+    - destination:
+        port:
+          number: 4180
+        host: oauthproxy-service.default.svc.cluster.local
+        
+  - match:
+    - uri:
+        prefix: /
+    route:
     - destination:
         port:
           number: 8000
         host: httpbin.foo.svc.cluster.local
+        
 
 ---
 

@@ -2,7 +2,8 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: authn-filter
-  namespace: istio-system
+  #namespace: istio-system
+  namespace: foo
 spec:
   workloadSelector:
     labels:
@@ -11,6 +12,7 @@ spec:
   - applyTo: HTTP_FILTER
     match:
       context: SIDECAR_INBOUND
+      #context: GATEWAY
       listener:
         portNumber: 80
         filterChain:
@@ -28,42 +30,42 @@ spec:
           http_service:
             server_uri:
               uri: http://oauthproxy-service.default.svc.cluster.local:4180
-              cluster: outbound|4180||oauthproxy-service.default.svc.cluster.local:4180
+              cluster: outbound|4180||oauthproxy-service.default.svc.cluster.local
               timeout: 3s
 
-            # authorizationRequest:
-            #   allowedHeaders:
-            #     patterns:
-            #     - exact: "cookie"
-            #     - exact: "x-forwarded-access-token"
-            #     - exact: "x-forwarded-user"
-            #     - exact: "x-forwarded-email"
-            #     - exact: "authorization"
-            #     - exact: "x-forwarded-proto"
-            #     - exact: "proxy-authorization"
-            #     - exact: "user-agent"
-            #     - exact: "x-forwarded-host"
-            #     - exact: "from"
-            #     - exact: "x-forwarded-for"
-            #     - exact: "accept"
-            #     - prefix: "x-forwarded"
-            #     - prefix: "x-auth-request"
-            # authorizationResponse:
-            #   allowedClientHeaders:
-            #     patterns:
+            authorizationRequest:
+              allowedHeaders:
+                patterns:
+                 - exact: "cookie"
+                 - exact: "x-forwarded-access-token"
+                 - exact: "x-forwarded-user"
+                 - exact: "x-forwarded-email"
+                 - exact: "authorization"
+                 - exact: "x-forwarded-proto"
+                 - exact: "proxy-authorization"
+                 - exact: "user-agent"
+                 - exact: "x-forwarded-host"
+                 - exact: "from"
+                 - exact: "x-forwarded-for"
+                 - exact: "accept"
+                 - prefix: "x-forwarded"
+                 - prefix: "x-auth-request"
+            authorizationResponse:
+               allowedClientHeaders:
+                 patterns:
             #     - exact: "location"
             #     - exact: "proxy-authenticate"
-            #     - exact: "set-cookie"
+                 - exact: "set-cookie"
             #     - exact: "authorization"
             #     - exact: "www-authenticate"
-            #     - prefix: "x-forwarded"
+                 - prefix: "x-forwarded"
             #     - prefix: "x-auth-request"
-            #   allowedUpstreamHeaders:
-            #     patterns:
+               allowedUpstreamHeaders:
+                 patterns:
             #     - exact: "location"
             #     - exact: "proxy-authenticate"
-            #     - exact: "set-cookie"
+                 - exact: "set-cookie"
             #     - exact: "authorization"
             #     - exact: "www-authenticate"
-            #     - prefix: "x-forwarded"
+                 - prefix: "x-forwarded"
             #     - prefix: "x-auth-request"              
