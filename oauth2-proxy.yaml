@@ -18,28 +18,31 @@ spec:
       containers:
         - args:
             - --cookie-secure=false
-            - --upstream=file://dev/null
+            #- --upstream=file://dev/null
+            #- --upstream=http://10.106.39.73/
+            - --upstream=static://
             - --http-address=0.0.0.0:4180
             - --cookie-secret=somerandomstring12341234567890AB
             - --client-id=example-app
             - --client-secret=ZXhhbXBsZS1hcHAtc2VjcmV0
             - --email-domain="example.com"
-            - --cookie-name=frontend_id
+            #- --cookie-name=frontend_id
             - --provider=oidc
             - --provider-display-name="Dex oidc"
             - --redirect-url=http://10.106.39.73/oauth2/callback
             #following should match what is configured in dex
             - --oidc-issuer-url=http://192.168.64.1:5556/dex
-            #- --cookie-samesite=none
+            #- --cookie-samesite=lax
+            - --session-store-type=cookie
+            - --pass-basic-auth=false
             - --pass-access-token=true
             - --pass-authorization-header=true
             - --set-authorization-header=true
-            #- --login-url=https://auth.justin-tech.com/auth/realms/Justin-Tech/protocol/openid-connect/auth
-            #- --redeem-url=https://auth.justin-tech.com/auth/realms/Justin-Tech/protocol/openid-connect/token
-            #- --validate-url=https://auth.justin-tech.com/auth/realms/Justin-Tech/protocol/openid-connect/userinfo
-            #- --cookie-expire=4h0m0s
+            - --ssl-insecure-skip-verify=true
+            - --set-xauthrequest=true
+            #- --reverse-proxy=true
             #- --whitelist-domain=".corp.justin-tech.com"
-            #- --cookie-domain=.justin-tech.com
+            #- --cookie-domain="*"
             - --standard-logging=true
             - --auth-logging=true
             - --request-logging=true

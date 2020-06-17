@@ -43,21 +43,30 @@ spec:
   #       host: httpbin.foo.svc.cluster.local
   - match:
     - uri:
-        prefix: /headers
-    route:
-    - destination:
-        port:
-          number: 4180
-        host: oauthproxy-service.default.svc.cluster.local
-  - match:
-    - uri:
-        prefix: /oauth2/
+        prefix: /oauth
     route:
     - destination:
         port:
           number: 4180
         host: oauthproxy-service.default.svc.cluster.local
         
+  # - match:
+  #   - uri:
+  #       prefix: /auth
+  #   route:
+  #   - destination:
+  #       port:
+  #         number: 4180
+  #       host: oauthproxy-service.default.svc.cluster.local
+  # - match:
+  #   - uri:
+  #       prefix: /api
+  #   route:
+  #   - destination:
+  #       port:
+  #         number: 4180
+  #       host: oauthproxy-service.default.svc.cluster.local
+
   - match:
     - uri:
         prefix: /
@@ -95,6 +104,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: httpbin
+  namespace: foo
 spec:
   replicas: 1
   selector:

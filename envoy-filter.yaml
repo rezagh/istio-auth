@@ -53,19 +53,19 @@ spec:
             authorizationResponse:
                allowedClientHeaders:
                  patterns:
-            #     - exact: "location"
-            #     - exact: "proxy-authenticate"
+                 - exact: "location"
+                 - exact: "proxy-authenticate"
                  - exact: "set-cookie"
-            #     - exact: "authorization"
-            #     - exact: "www-authenticate"
+                 - exact: "authorization"
+                 - exact: "www-authenticate"
                  - prefix: "x-forwarded"
-            #     - prefix: "x-auth-request"
+                 - prefix: "x-auth-request"
                allowedUpstreamHeaders:
                  patterns:
-            #     - exact: "location"
-            #     - exact: "proxy-authenticate"
+                 - exact: "location"
+                 - exact: "proxy-authenticate"
                  - exact: "set-cookie"
-            #     - exact: "authorization"
-            #     - exact: "www-authenticate"
+                 - exact: "authorization"
+                 - exact: "www-authenticate"
                  - prefix: "x-forwarded"
-            #     - prefix: "x-auth-request"              
+                 - prefix: "x-auth-request"              

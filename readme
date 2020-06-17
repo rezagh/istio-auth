@@ -1,0 +1,6 @@
+After successful auth on the provider's page, you're supposed to be redirected back to this redirect url, 
+with a url param "code=..." and your browser should also have a CSRF cookie (default "_oauth2_proxy_csrf"). 
+If you hit that redirect url with those two elements, it should finally give you a "_oauth2_proxy" 
+cookie and redirect you to the original destination (or else "/"). If in the request after this callback, 
+whether it is successful or fails, you don't seem to have the "_oauth2_proxy" cookie, you get that error message you originally posted.
+
