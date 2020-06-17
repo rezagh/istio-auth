@@ -50,7 +50,17 @@ spec:
                  - exact: "accept"
                  - prefix: "x-forwarded"
                  - prefix: "x-auth-request"
+                 - prefix: _oauth2_proxy
+                 - exact: cookie
             authorizationResponse:
+               allowed_upstream_headers:
+                 patterns:
+                 - exact: authorization
+                 - exact: Cookie
+                 - exact: cookie
+                 - prefix: x-forwarded
+                 - prefix: x-auth-request
+                 - prefix: _oauth2_proxy
                allowedClientHeaders:
                  patterns:
                  - exact: "location"
