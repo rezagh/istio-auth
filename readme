@@ -1,3 +1,11 @@
+client -> istio ingress gateway -> envoy filter -> oauth proxy -> dex -> ldap
+
+* Istio ingress gateway is an ingress gateway to the mesh that can have a public ip
+* envoy filter intercepts http traffic to the sidecar proxy and checks whether the request is authenticated or not. If not it will send them to oauth proxy
+* oauth proxy is a convenient proxy to perform oauth flows
+* Dex is an existing identity provider inside k8s that integrates with LDAP as the identity source
+
+
 After successful auth on the provider's page, you're supposed to be redirected back to this redirect url, 
 with a url param "code=..." and your browser should also have a CSRF cookie (default "_oauth2_proxy_csrf"). 
 If you hit that redirect url with those two elements, it should finally give you a "_oauth2_proxy" 
