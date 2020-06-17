@@ -25,7 +25,7 @@ spec:
             - --cookie-secret=somerandomstring12341234567890AB
             - --client-id=example-app
             - --client-secret=ZXhhbXBsZS1hcHAtc2VjcmV0
-            - --email-domain="*"
+            - --email-domain=*
             #- --cookie-name=frontend_id
             - --provider=oidc
             - --provider-display-name="Dex oidc"
